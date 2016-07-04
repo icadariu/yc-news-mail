@@ -1,2 +1,2 @@
 # yc-news-mail
-Best hacker news sent over email daily/weekly
+Most rated news from https://news.ycombinator.com/ will be sent daily/weekly over email
