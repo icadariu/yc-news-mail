@@ -1,0 +1,22 @@
+{
+  "name": "yc-news-mail",
+  "version": "1.0.0",
+  "description": "Most rated news from https://news.ycombinator.com/ will be sent daily/weekly over email",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/icadariu/yc-news-mail.git"
+  },
+  "keywords": [
+    "hackernews"
+  ],
+  "author": "Ionut Cadariu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/icadariu/yc-news-mail/issues"
+  },
+  "homepage": "https://github.com/icadariu/yc-news-mail#readme"
+}
