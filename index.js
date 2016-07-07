@@ -40,3 +40,14 @@ jsonFetch(urlHN)
     }
   })
   .catch((e) => console.error(e));
+
+// const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
+// jsonFetch(urlHN)
+//   // .then((obj) => console.log('response obj', obj))
+//   .then((stories) => {
+//     const storyId = stories[0];
+//     const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
+//     jsonFetch(storyUrl)
+//       .then(storyObj => console.log(storyObj));
+//   })
+//   .catch((e) => console.error(e));
