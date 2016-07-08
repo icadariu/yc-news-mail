@@ -30,30 +30,22 @@ const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=prett
 jsonFetch(urlHN)
   .then((stories) => {
     // const storyId = stories[0];
-    // const storyIdLength = stories.length;
-//    storyScore = {};
+    const storyScore = [];
     let i;
+    const rating = 50;
     for (i = 0; i < stories.length; i++) {
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
       jsonFetch(storyUrl)
-        .then(storyObj => console.log(storyObj.score, storyObj.title));
-
-/*
-.then(function (selectedOption) {
-             if (selectedOption === 'Yes') {
-                 return this.save();
-             } else {
-                 Q.resolve()
-             }
-         });
-*/
-// TODO: create the if statement and show only news with more than 50 points
-    //     .then(storyObj) {
-    //       if (storyObj.score > 50) {
-    //         storyScore.push(storyObj);
-    //    };
-    //  };
+      // .then(storyObj => console.log(storyObj.score, storyObj.title));
+      .then((storyObj) => {
+        if (storyObj.score > rating) {
+          storyScore.push(storyObj);
+        } else {
+          // console.log(`Story ID = ${storyId} has ${storyObj.score} less then 40`);
+        }
+        console.log(storyScore);
+      });
     }
   })
   .catch((e) => console.error(e));
