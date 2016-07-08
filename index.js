@@ -2,8 +2,11 @@
 
 // https://github.com/stefanpenner/es6-promise#auto-polyfill
 require('es6-promise').polyfill();
-// https://github.com/matthew-andrews/isomorphic-fetch#usage
+// https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
+const bestStories = [];
+const rating = 600;
+let i;
 
 function jsonFetch(url) {
   const opts = {
@@ -30,10 +33,8 @@ const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=prett
 jsonFetch(urlHN)
   .then((stories) => {
     // const storyId = stories[0];
-    const bestStories = [];
-    let i;
-    const rating = 400;
-    for (i = 0; i < stories.length; i++) {
+    for (i = 0; i <= stories.length; i++) {
+      // console.log(`Now i is ${i} ; and stories.length is - ${stories.length}`);
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
       jsonFetch(storyUrl)
@@ -41,11 +42,9 @@ jsonFetch(urlHN)
       .then((storyObj) => {
         if (storyObj.score > rating) {
           bestStories.push(storyObj);
-        } else {
-          // console.log(`Story ID = ${storyId} has ${storyObj.score} less then 40`);
         }
-        console.log(bestStories);
       });
     }
+    // console.log(bestStories);
   })
   .catch((e) => console.error(e));
