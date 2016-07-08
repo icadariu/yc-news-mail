@@ -5,8 +5,13 @@ require('es6-promise').polyfill();
 // https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
 const bestStories = [];
-const rating = 600;
+const rating = 800;
 let i;
+
+setInterval(function testing() {
+  console.log(bestStories);
+}, 1000);
+
 
 function jsonFetch(url) {
   const opts = {
@@ -32,19 +37,20 @@ function jsonFetch(url) {
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
 jsonFetch(urlHN)
   .then((stories) => {
-    // const storyId = stories[0];
-    for (i = 0; i <= stories.length; i++) {
+    for (i = 0; i < stories.length; i++) {
       // console.log(`Now i is ${i} ; and stories.length is - ${stories.length}`);
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
       jsonFetch(storyUrl)
-      // .then(storyObj => console.log(storyObj.score, storyObj.title));
-      .then((storyObj) => {
-        if (storyObj.score > rating) {
-          bestStories.push(storyObj);
-        }
-      });
+        .then((storyObj) => {
+          if (storyObj.score > rating) {
+            bestStories.push(storyObj);
+          }
+        });
     }
     // console.log(bestStories);
   })
   .catch((e) => console.error(e));
+// TODO: - save news on a json file
+// TODO: save info from that json to mongo
+// TODO:  play with mongo
