@@ -30,9 +30,9 @@ const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=prett
 jsonFetch(urlHN)
   .then((stories) => {
     // const storyId = stories[0];
-    const storyScore = [];
+    const bestStories = [];
     let i;
-    const rating = 50;
+    const rating = 400;
     for (i = 0; i < stories.length; i++) {
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
@@ -40,11 +40,11 @@ jsonFetch(urlHN)
       // .then(storyObj => console.log(storyObj.score, storyObj.title));
       .then((storyObj) => {
         if (storyObj.score > rating) {
-          storyScore.push(storyObj);
+          bestStories.push(storyObj);
         } else {
           // console.log(`Story ID = ${storyId} has ${storyObj.score} less then 40`);
         }
-        console.log(storyScore);
+        console.log(bestStories);
       });
     }
   })
