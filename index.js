@@ -42,10 +42,10 @@ jsonFetch(urlHN)
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
       console.log(`Now i -> ${i};
         stories[i] -> ${stories[i]}
-        stories.length -> ${stories.length}
         stryUrl -> ${storyUrl}`);
       jsonFetch(storyUrl)
         .then((storyObj) => {
+          console.log(`StoryObj -> ${storyObj.score}`);
           if (storyObj.score > rating) {
             bestStories.push(storyObj);
           }
