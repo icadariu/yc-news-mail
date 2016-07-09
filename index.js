@@ -4,14 +4,15 @@
 require('es6-promise').polyfill();
 // https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
-const bestStories = [];
+// const bestStories = [];
 const rating = 50;
 let i;
 
-// setInterval(function testing() {
-//   console.log(bestStories);
-// }, 1000);
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/yc');
 
+var bestStoriesDB = mongoose.model('BestStories', {id: String, url: String,
+  comments: String, score: Number, title: String, sent: Boolean });
 
 function jsonFetch(url) {
   const opts = {
@@ -37,28 +38,29 @@ function jsonFetch(url) {
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
 jsonFetch(urlHN)
   .then((stories) => {
-    let j = 0;
     for (i = 0; i < stories.length; i++) {
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
-      // console.log(`Now i -> ${i};
-      //   stories[i] -> ${stories[i]}
-      //   stryUrl -> ${storyUrl}`);
       jsonFetch(storyUrl)
         .then((storyObj) => {
-          j++;
-          // console.log(`StoryObj -> ${storyObj.score}
-          //   j -> ${j}`);
           if (storyObj.score > rating) {
-            bestStories.push(storyObj);
-          }
-          if (j === stories.length) {
-            console.log(JSON.stringify(bestStories));
+            // bestStories.push(storyObj);
+            // 'BestStories', {id: String, url: String, comments: String, score: Number, title: String, sent: Boolean });
+            // https://news.ycombinator.com/item?id=12043712
+            let HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
+            let urlCheck = storyObj.url;
+            // TODO: create if statement to check if storyObj.url is null. If true, use HNurl
+
+            var news = new bestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
+              score: storyObj.score, title: storyObj.title, sent: false });
+
+            news.save(function (err) {
+              if (err) { console.log(err); }
+            });
           }
         })
         .catch((e) => console.error(e));
     }
-    // console.log(bestStories);
   })
   .catch((e) => console.error(e));
 
