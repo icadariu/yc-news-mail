@@ -5,12 +5,12 @@ require('es6-promise').polyfill();
 // https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
 const bestStories = [];
-const rating = 800;
+const rating = 700;
 let i;
 
-setInterval(function testing() {
-  console.log(bestStories);
-}, 1000);
+// setInterval(function testing() {
+//   console.log(bestStories);
+// }, 0);
 
 
 function jsonFetch(url) {
@@ -38,9 +38,12 @@ const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=prett
 jsonFetch(urlHN)
   .then((stories) => {
     for (i = 0; i < stories.length; i++) {
-      // console.log(`Now i is ${i} ; and stories.length is - ${stories.length}`);
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
+      console.log(`Now i -> ${i};
+        stories[i] -> ${stories[i]}
+        stories.length -> ${stories.length}
+        stryUrl -> ${storyUrl}`);
       jsonFetch(storyUrl)
         .then((storyObj) => {
           if (storyObj.score > rating) {
@@ -53,4 +56,6 @@ jsonFetch(urlHN)
   .catch((e) => console.error(e));
 // TODO: - save news on a json file
 // TODO: save info from that json to mongo
-// TODO:  play with mongo
+// TODO: play with mongo li
+// TODO: add comments link - you can use https://news.ycombinator.com/item?id=12061453 where
+//       id is equal to storyId
