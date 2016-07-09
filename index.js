@@ -5,12 +5,12 @@ require('es6-promise').polyfill();
 // https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
 const bestStories = [];
-const rating = 700;
+const rating = 50;
 let i;
 
 // setInterval(function testing() {
 //   console.log(bestStories);
-// }, 0);
+// }, 1000);
 
 
 function jsonFetch(url) {
@@ -37,23 +37,32 @@ function jsonFetch(url) {
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
 jsonFetch(urlHN)
   .then((stories) => {
+    let j = 0;
     for (i = 0; i < stories.length; i++) {
       const storyId = stories[i];
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
-      console.log(`Now i -> ${i};
-        stories[i] -> ${stories[i]}
-        stryUrl -> ${storyUrl}`);
+      // console.log(`Now i -> ${i};
+      //   stories[i] -> ${stories[i]}
+      //   stryUrl -> ${storyUrl}`);
       jsonFetch(storyUrl)
         .then((storyObj) => {
-          console.log(`StoryObj -> ${storyObj.score}`);
+          j++;
+          // console.log(`StoryObj -> ${storyObj.score}
+          //   j -> ${j}`);
           if (storyObj.score > rating) {
             bestStories.push(storyObj);
           }
-        });
+          if (j === stories.length) {
+            console.log(JSON.stringify(bestStories));
+          }
+        })
+        .catch((e) => console.error(e));
     }
     // console.log(bestStories);
   })
   .catch((e) => console.error(e));
+
+
 // TODO: - save news on a json file
 // TODO: save info from that json to mongo
 // TODO: play with mongo li
