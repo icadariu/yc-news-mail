@@ -8,10 +8,9 @@ require('isomorphic-fetch');
 const rating = 50;
 let i;
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/yc');
-
-var bestStoriesDB = mongoose.model('BestStories', {id: String, url: String,
+const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
   comments: String, score: Number, title: String, sent: Boolean });
 
 function jsonFetch(url) {
@@ -45,28 +44,20 @@ jsonFetch(urlHN)
         .then((storyObj) => {
           if (storyObj.score > rating) {
             // bestStories.push(storyObj);
-            // 'BestStories', {id: String, url: String, comments: String, score: Number, title: String, sent: Boolean });
             // https://news.ycombinator.com/item?id=12043712
-            let HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
-            let urlCheck = storyObj.url;
+            const HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
+            // const urlCheck = storyObj.url;
             // TODO: create if statement to check if storyObj.url is null. If true, use HNurl
 
-            var news = new bestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
+            const news = new BestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
               score: storyObj.score, title: storyObj.title, sent: false });
-
-            news.save(function (err) {
-              if (err) { console.log(err); }
-            });
+            news.save();
+            // news.save(function errs(err) {
+            //   if (err) { console.log(err); }
+            // });
           }
         })
         .catch((e) => console.error(e));
     }
   })
   .catch((e) => console.error(e));
-
-
-// TODO: - save news on a json file
-// TODO: save info from that json to mongo
-// TODO: play with mongo li
-// TODO: add comments link - you can use https://news.ycombinator.com/item?id=12061453 where
-//       id is equal to storyId
