@@ -62,5 +62,12 @@ jsonFetch(urlHN)
 // TODO: in case the id is already in db don't insert it again
 // TODO: mail function and mark in db ids that were sent
 
-  // db.beststories.find({"url": {$exists:false}});
-  // db.beststories.find({"id": "12030863"});
+// db.beststories.find({"url": {$exists:false}});
+// db.beststories.find({"id": "12030863"});
+// how to update db in order to avoid creating duplicates
+// TweetsModel.update(
+//     {id: storyObj.id},
+//     {$setOnInsert: tweet},
+//     {upsert: true},
+//     function(err, numAffected) { .. }
+// );
