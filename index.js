@@ -7,9 +7,14 @@ require('isomorphic-fetch');
 // const bestStories = [];
 const rating = 50;
 let i;
+const creds = require('./credentials.js');
 
+// db connect lines
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/yc');
+// TODO: can't connect to remote db. i need to fix this
+// mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
+
 const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
   comments: String, score: Number, title: String, sent: Boolean });
 

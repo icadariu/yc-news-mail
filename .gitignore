@@ -38,5 +38,5 @@ jspm_packages
 # testing file
 fisier-test
 
-# secret file
-secret-mail.js
+# Don't track credentials file
+credentials.js
