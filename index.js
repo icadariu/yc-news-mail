@@ -15,8 +15,6 @@ mongoose.connect('mongodb://localhost/yc');
 // TODO: can't connect to remote db. i need to fix this
 // mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
 
-const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
-  comments: String, score: Number, title: String, sent: Boolean });
 
 function jsonFetch(url) {
   const opts = {
@@ -40,6 +38,9 @@ function jsonFetch(url) {
 }
 
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
+const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
+  comments: String, score: Number, title: String, sent: Boolean });
+
 jsonFetch(urlHN)
   .then((stories) => {
     for (i = 0; i < stories.length; i++) {
@@ -51,6 +52,7 @@ jsonFetch(urlHN)
             const HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
             /* eslint no-param-reassign: ["error", { "props": false }] */
             if (storyObj.url == null) { storyObj.url = HNurl; }
+
             const news = new BestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
               score: storyObj.score, title: storyObj.title, sent: false });
             // news.save();
