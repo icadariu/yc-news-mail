@@ -55,10 +55,11 @@ jsonFetch(urlHN)
 
             const news = new BestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
               score: storyObj.score, title: storyObj.title, sent: false });
-            // news.save();
             news.save(function errs(err) {
               if (err) { console.log(err); }
             });
+            // news.save();
+//            news.update({ storyObj.id }, { upsert: true });
           }
         })
         .catch((e) => console.error(e));
