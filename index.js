@@ -5,9 +5,10 @@ require('es6-promise').polyfill();
 // https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
 // const bestStories = [];
-const rating = 50;
+const myScore = 500;
 let i;
-const creds = require('./credentials.js');
+// TODO: will be needed when i will auth to db
+// const creds = require('./credentials.js');
 
 // db connect lines
 const mongoose = require('mongoose');
@@ -48,18 +49,18 @@ jsonFetch(urlHN)
       const storyUrl = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
       jsonFetch(storyUrl)
         .then((storyObj) => {
-          if (storyObj.score > rating) {
+          if (storyObj.score > myScore) {
             const HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
             /* eslint no-param-reassign: ["error", { "props": false }] */
             if (storyObj.url == null) { storyObj.url = HNurl; }
-
             const news = new BestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
               score: storyObj.score, title: storyObj.title, sent: false });
-            news.save(function errs(err) {
-              if (err) { console.log(err); }
+
+            BestStoriesDB.findOne({ id: storyObj.id }, function (err, obj) {
+              if (obj == null) {
+                news.save();
+              }
             });
-            // news.save();
-//            news.update({ storyObj.id }, { upsert: true });
           }
         })
         .catch((e) => console.error(e));
@@ -67,15 +68,4 @@ jsonFetch(urlHN)
   })
   .catch((e) => console.error(e));
 
-// TODO: in case the id is already in db don't insert it again
 // TODO: mail function and mark in db ids that were sent
-
-// db.beststories.find({"url": {$exists:false}});
-// db.beststories.find({"id": "12030863"});
-// how to update db in order to avoid creating duplicates
-// TweetsModel.update(
-//     {id: storyObj.id},
-//     {$setOnInsert: tweet},
-//     {upsert: true},
-//     function(err, numAffected) { .. }
-// );

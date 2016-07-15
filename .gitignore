@@ -40,3 +40,6 @@ fisier-test
 
 # Don't track credentials file
 credentials.js
+
+# file containing all sort of commented lines
+mycomments.js
