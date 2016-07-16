@@ -69,3 +69,5 @@ jsonFetch(urlHN)
   .catch((e) => console.error(e));
 
 // TODO: mail function and mark in db ids that were sent
+// TODO: user should be able to choose story score
+// TODO: create a separate collection that contains user's email address to send mail
