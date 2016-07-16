@@ -1,18 +1,37 @@
 require('mailgun-js');
 const mGunCreds = require('./credentials.js');
-
 const mailGunApiKey = mGunCreds.mailGunApiKey;
 const mGunDomain = mGunCreds.mGunDomain;
-
+const emailAddress = mGunCreds.emailAddress;
 const mailgun = require('mailgun-js')({ apiKey: mailGunApiKey, domain: mGunDomain });
 
-const data = {
-  from: `yc-news-mail <postmaster@${mGunDomain}`,
-  to: 'testuser@example.com',
-  subject: 'YC Best Stories',
-  text: 'Best Stories ever',
-};
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/yc');
 
-mailgun.messages().send(data, function (error, body) {
-  console.log(body);
+const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
+  comments: String, score: Number, title: String, sent: Boolean });
+
+BestStoriesDB.find({ sent: false }, function (err, news) {
+  let stories = '';
+  for (let i = 0; i < news.length; i++) {
+    const element = news[i];
+    stories += `
+    ${element.title}
+    URL ---> ${element.url}
+    Comments ---> ${element.comments}
+    =========================================`;
+    element.sent = true;
+    element.save();
+  }
+
+  const data = {
+    from: `yc-news-mail <postmaster@${mGunDomain}>`,
+    to: `${emailAddress}`,
+    subject: 'YC Great Stories',
+    text: `${stories}`,
+  };
+
+  mailgun.messages().send(data, function (error, body) {
+    // console.log(error);
+  });
 });

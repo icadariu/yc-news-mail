@@ -5,7 +5,10 @@ require('es6-promise').polyfill();
 // https://github.com/matthew-andrews/isomorphic-fetch#usage,
 require('isomorphic-fetch');
 // const bestStories = [];
-const myScore = 500;
+
+const myScore = process.env.HN_SCORE || 50;
+// HN_SCORE=600 node index.js
+
 let i;
 // TODO: will be needed when i will auth to db
 // const creds = require('./credentials.js');
@@ -15,7 +18,6 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/yc');
 // TODO: can't connect to remote db. i need to fix this
 // mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
-
 
 function jsonFetch(url) {
   const opts = {
@@ -53,6 +55,7 @@ jsonFetch(urlHN)
             const HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
             /* eslint no-param-reassign: ["error", { "props": false }] */
             if (storyObj.url == null) { storyObj.url = HNurl; }
+
             const news = new BestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
               score: storyObj.score, title: storyObj.title, sent: false });
 
@@ -68,6 +71,4 @@ jsonFetch(urlHN)
   })
   .catch((e) => console.error(e));
 
-// TODO: mail function and mark in db ids that were sent
 // TODO: user should be able to choose story score
-// TODO: create a separate collection that contains user's email address to send mail
