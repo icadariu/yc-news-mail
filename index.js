@@ -6,8 +6,8 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 // const bestStories = [];
 
-const myScore = process.env.HN_SCORE || 50;
 // HN_SCORE=600 node index.js
+const myScore = process.env.HN_SCORE || 50;
 
 let i;
 // TODO: will be needed when i will auth to db
@@ -43,8 +43,16 @@ jsonFetch(urlHN)
             /* eslint no-param-reassign: ["error", { "props": false }] */
             if (storyObj.url == null) { storyObj.url = HNurl; }
 
-            const news = new BestStoriesDB({ id: storyObj.id, url: storyObj.url, comments: HNurl,
-              score: storyObj.score, title: storyObj.title, sent: false });
+            const data = {
+              id: storyObj.id,
+              url: storyObj.url,
+              comments: HNurl,
+              score: storyObj.score,
+              title: storyObj.title,
+              sent: false,
+            };
+
+            const news = new BestStoriesDB(data);
 
             BestStoriesDB.findOne({ id: storyObj.id }, function (err, obj) {
               if (obj == null) {
