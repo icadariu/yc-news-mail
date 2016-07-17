@@ -21,8 +21,14 @@ mongoose.connect('mongodb://localhost/yc');
 
 
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
-const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
-  comments: String, score: Number, title: String, sent: Boolean });
+const BestStoriesDB = mongoose.model('BestStories', {
+  id: String,
+  url: String,
+  comments: String,
+  score: Number,
+  title: String,
+  sent: Boolean,
+});
 
 const jsonFetch = require('./utils').jsonFetch;
 jsonFetch(urlHN)
