@@ -19,31 +19,12 @@ mongoose.connect('mongodb://localhost/yc');
 // TODO: can't connect to remote db. i need to fix this
 // mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
 
-function jsonFetch(url) {
-  const opts = {
-    method: 'get',
-    // mode: 'cors',
-    // credentials: 'include',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
-
-  return fetch(url, opts)
-    .then((response) => {
-      const { status } = response;
-      if (status >= 400) {
-        throw new Error(`Bad response from server with status ${status}`);
-      }
-      return response.json();
-    });
-}
 
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
 const BestStoriesDB = mongoose.model('BestStories', { id: String, url: String,
   comments: String, score: Number, title: String, sent: Boolean });
 
+const jsonFetch = require('./utils').jsonFetch;
 jsonFetch(urlHN)
   .then((stories) => {
     for (i = 0; i < stories.length; i++) {
