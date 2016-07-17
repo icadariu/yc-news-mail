@@ -40,18 +40,14 @@ jsonFetch(urlHN)
         .then((storyObj) => {
           if (storyObj.score > myScore) {
             const HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
-            /* eslint no-param-reassign: ["error", { "props": false }] */
-            if (storyObj.url == null) { storyObj.url = HNurl; }
-
             const data = {
               id: storyObj.id,
               url: storyObj.url,
-              comments: HNurl,
+              comments: storyObj.url || HNurl,
               score: storyObj.score,
               title: storyObj.title,
               sent: false,
             };
-
             const news = new BestStoriesDB(data);
 
             BestStoriesDB.findOne({ id: storyObj.id }, function (err, obj) {
