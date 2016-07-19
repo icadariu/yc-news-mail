@@ -14,9 +14,16 @@ let i;
 // const creds = require('./credentials.js');
 // TODO: will be needed when it will connect to a real db
 
+let mongoUrl = '';
+
+if (process.env.NODE_ENV === 'production') {
+  mongoUrl = 'mongodb://mongo/yc';
+} else {
+  mongoUrl = 'mongodb://localhost/yc';
+}
 // db connect lines
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/yc');
+mongoose.connect(mongoUrl);
 // mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
 // TODO: can't connect to remote db. i need to fix this
 
