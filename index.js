@@ -10,14 +10,15 @@ require('isomorphic-fetch');
 const myScore = process.env.HN_SCORE || 50;
 
 let i;
-// TODO: will be needed when i will auth to db
+
 // const creds = require('./credentials.js');
+// TODO: will be needed when it will connect to a real db
 
 // db connect lines
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/yc');
-// TODO: can't connect to remote db. i need to fix this
 // mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
+// TODO: can't connect to remote db. i need to fix this
 
 
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
