@@ -4,7 +4,7 @@
   "description": "Most rated news from https://news.ycombinator.com/ will be sent daily/weekly over email",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && export NODE_ENV=production node index.js",
+    "start": "npm install && NODE_ENV=production node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

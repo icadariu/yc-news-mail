@@ -7,10 +7,8 @@ require('isomorphic-fetch');
 // see config.js for default values
 const config = require('./config');
 
-let i;
-
-// const creds = require('./credentials.js');
 // TODO: will be needed when it will connect to a real db
+// const creds = require('./credentials.js');
 
 let mongoUrl = '';
 
@@ -19,12 +17,11 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   mongoUrl = 'mongodb://localhost/yc';
 }
-// db connect lines
 const mongoose = require('mongoose');
 mongoose.connect(mongoUrl);
-// mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
-// TODO: can't connect to remote db. i need to fix this
 
+// TODO: can't connect to remote db. i need to fix this
+// mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
 
 const urlHN = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
 const BestStoriesDB = mongoose.model('BestStories', {
@@ -37,6 +34,7 @@ const BestStoriesDB = mongoose.model('BestStories', {
 });
 const myScore = config.ycScore;
 const jsonFetch = require('./utils').jsonFetch;
+let i;
 
 function newsCheck() {
   jsonFetch(urlHN)

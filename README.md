@@ -7,8 +7,9 @@ Using docker:
 
 ```
 cd $HOME
+mkdir mongo
 git clone git@github.com:icadariu/yc-news-mail.git
 cd yc-news-mail
-docker run -v "$(pwd)":/data --name mongo -d mongo mongod --smallfiles
+docker run -v "$(pwd)/mongo":/data --name mongo -d mongo mongod --smallfiles
 docker run -d --name node -v "$HOME/yc-news-mail":/data --link mongo:mongo -w /data node npm start
 ```
