@@ -1,7 +1,9 @@
 # yc-news-mail
 Most rated news from https://news.ycombinator.com/ will be sent daily/weekly over email
 
-Automatically start using docker:
+After cloning the repo you need to move credentials.js.example to credentials.js and edit de values as needed.
+
+Using docker:
 
 ```
 cd $HOME
