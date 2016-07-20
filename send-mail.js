@@ -30,6 +30,8 @@ BestStoriesDB.find({ sent: false }, function (err, news) {
     ${element.title}
     URL ---> ${element.url}
     Comments ---> ${element.comments}
+    Score ---> ${element.score}
+
     =========================================`;
     element.sent = true;
     element.save();
