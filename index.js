@@ -1,3 +1,5 @@
+// one function for grabbig news + insert in db and one for sending mail
+
 // HackerNews API - https://github.com/HackerNews/API
 
 // https://github.com/stefanpenner/es6-promise#auto-polyfill
