@@ -1,0 +1,16 @@
+version: '2'
+services:
+  node:
+    image: icadariu/priv:node
+    container_name: nodeapp
+    links:
+      - mongo
+    volumes:
+      - $PWD/yc-news-mail:/data
+    working_dir: /data
+    command: npm start
+  mongo:
+    image: icadariu/priv:mongo
+    container_name: mongo
+    expose:
+      - 27017

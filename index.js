@@ -12,6 +12,8 @@ const config = require('./config');
 
 let mongoUrl = '';
 
+console.log('----- Starting index.js');
+
 if (process.env.NODE_ENV === 'production') {
   mongoUrl = 'mongodb://mongo/yc';
 } else {
@@ -19,6 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 const mongoose = require('mongoose');
 mongoose.connect(mongoUrl);
+
 
 // TODO: can't connect to remote db. i need to fix this
 // mongoose.connect(`mongodb:///${creds.dbUser}:${creds.dbPass}@${creds.dbHost}/yc`);
@@ -34,6 +37,7 @@ const BestStoriesDB = mongoose.model('BestStories', {
 });
 const myScore = config.ycScore;
 const jsonFetch = require('./utils').jsonFetch;
+
 let i;
 
 function newsCheck() {
@@ -69,4 +73,44 @@ function newsCheck() {
   .catch((e) => console.error(e));
 }
 // program will run every hour(see config.js)
-setInterval(newsCheck, config.time);
+setInterval(newsCheck, config.ycCheck);
+
+// const ycMail = require('./send-mail');
+// setInterval(ycMail, config.ycMail);
+require('mailgun-js');
+const mGunCreds = require('./credentials.js');
+const mailGunApiKey = mGunCreds.mailGunApiKey;
+const mGunDomain = mGunCreds.mGunDomain;
+const emailAddress = mGunCreds.emailAddress;
+const mailgun = require('mailgun-js')({ apiKey: mailGunApiKey, domain: mGunDomain });
+
+function mailSend() {
+  BestStoriesDB.find({ sent: false }, function (err, news) {
+    let stories = '';
+    for (let j = 0; j < news.length; j++) {
+      const element = news[j];
+      stories += `
+      ${element.title}
+      URL ---> ${element.url}
+      Comments ---> ${element.comments}
+      Score ---> ${element.score}
+
+      =========================================`;
+      element.sent = true;
+      element.save();
+    }
+
+    const data = {
+      from: `yc-news-mail <postmaster@${mGunDomain}>`,
+      to: `${emailAddress}`,
+      subject: 'YC Great Stories',
+      text: `${stories}`,
+    };
+
+    mailgun.messages().send(data, function (error, body) {
+      console.log(error);
+      console.log(body);
+    });
+  });
+}
+setInterval(mailSend, config.ycMail);
