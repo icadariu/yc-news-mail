@@ -38,7 +38,7 @@ jspm_packages
 # testing file
 fisier-test
 
-# Don't track credentials file
+# Don't track credentials file to avaoid leaking sensitive data
 credentials.js
 
 # file containing all sort of commented lines
