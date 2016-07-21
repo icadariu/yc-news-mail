@@ -1,3 +1,4 @@
+# you will need at least docker-compose version 1.7.1
 version: '2'
 services:
   node:
