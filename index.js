@@ -51,11 +51,12 @@ function newsCheck() {
       jsonFetch(storyUrl)
       .then((storyObj) => {
         if (storyObj.score > myScore) {
+          // Comments URL also used in case URL points to YC site
           const HNurl = `https://news.ycombinator.com/item?id=${storyObj.id}`;
           const data = {
             id: storyObj.id,
-            url: storyObj.url,
-            comments: storyObj.url || HNurl,
+            url: storyObj.url || HNurl,
+            comments: storyObj.url,
             score: storyObj.score,
             title: storyObj.title,
             sent: false,
