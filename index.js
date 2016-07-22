@@ -96,7 +96,7 @@ function mailSend() {
       ${element.title}
       URL ---> ${element.url}
       Comments ---> ${element.comments}
-      Score ---> ${element.score}
+      Score: ${element.score}
 
       =========================================`;
       element.sent = true;
