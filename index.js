@@ -111,9 +111,11 @@ function mailSend() {
     };
 
     mailgun.messages().send(data, function (error, body) {
-      console.log(error);
-      console.log(body);
+      // console.log(error);
     });
   });
 }
-setInterval(mailSend, config.ycMail);
+const schedule = require('node-schedule');
+schedule.scheduleJob('0 21 * * *', mailSend);
+schedule.scheduleJob('0 09 * * *', mailSend);
+// setInterval(mailSend, config.ycMail);

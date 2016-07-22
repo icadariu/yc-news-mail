@@ -13,5 +13,7 @@ services:
   mongo:
     image: icadariu/priv:mongo
     container_name: mongo
+    volumes:
+      - $PWD/mongodb:/data
     expose:
       - 27017
