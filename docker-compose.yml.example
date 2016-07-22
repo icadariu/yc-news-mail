@@ -2,7 +2,7 @@
 version: '2'
 services:
   node:
-    image: icadariu/priv:node1
+    image: node
     container_name: nodeapp
     links:
       - mongo
@@ -11,7 +11,7 @@ services:
     working_dir: /data
     command: npm start
   mongo:
-    image: icadariu/priv:mongo1
+    image: mongo
     container_name: mongo
     volumes:
       - $PWD/mongodb:/data
