@@ -14,7 +14,7 @@ const config = require('./config');
 
 let mongoUrl = '';
 
-console.log('----- Starting index.js');
+// console.log('----- Starting index.js');
 
 if (process.env.NODE_ENV === 'production') {
   mongoUrl = 'mongodb://mongo/yc';
@@ -56,7 +56,7 @@ function newsCheck() {
           const data = {
             id: storyObj.id,
             url: storyObj.url || HNurl,
-            comments: storyObj.url,
+            comments: HNurl,
             score: storyObj.score,
             title: storyObj.title,
             sent: false,
