@@ -106,7 +106,7 @@ function mailSend() {
     const data = {
       from: `yc-news-mail <postmaster@${mGunDomain}>`,
       to: `${emailAddress}`,
-      subject: 'YC Great Stories',
+      subject: 'YC Greatest Stories',
       text: `${stories}`,
     };
 
