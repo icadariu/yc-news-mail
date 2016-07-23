@@ -1,6 +1,6 @@
 {
   "name": "yc-news-mail",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Most rated news from https://news.ycombinator.com/ will be sent daily/weekly over email",
   "main": "index.js",
   "scripts": {
