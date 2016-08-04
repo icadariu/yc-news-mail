@@ -116,6 +116,8 @@ function mailSend() {
   });
 }
 const schedule = require('node-schedule');
-schedule.scheduleJob('0 21 * * *', mailSend);
-schedule.scheduleJob('0 09 * * *', mailSend);
-// setInterval(mailSend, config.ycMail);
+schedule.scheduleJob(config.ycSendMorning, mailSend);
+schedule.scheduleJob(config.ycSendNoon, mailSend);
+schedule.scheduleJob(config.ycSendEvening, mailSend);
+//mailSend();
+
