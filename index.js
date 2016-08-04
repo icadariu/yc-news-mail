@@ -120,4 +120,4 @@ schedule.scheduleJob(config.ycSendMorning, mailSend);
 schedule.scheduleJob(config.ycSendNoon, mailSend);
 schedule.scheduleJob(config.ycSendEvening, mailSend);
 //mailSend();
-
+// setInterval(mailSend, config.ycMail);
