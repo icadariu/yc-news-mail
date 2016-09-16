@@ -1,5 +1,6 @@
 # yc-news-mail
 Most rated news from https://news.ycombinator.com/ will be sent daily/weekly over email.
+https://github.com/HackerNews/API
 Code works with mailgun key.
 
 Using docker-compose (> 1.7.1):
