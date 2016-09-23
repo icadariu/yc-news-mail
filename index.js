@@ -119,5 +119,5 @@ const schedule = require('node-schedule');
 schedule.scheduleJob(config.ycSendMorning, mailSend);
 schedule.scheduleJob(config.ycSendNoon, mailSend);
 schedule.scheduleJob(config.ycSendEvening, mailSend);
+schedule.scheduleJob(config.ycNow, mailSend);
 //mailSend();
-// setInterval(mailSend, config.ycMail);
