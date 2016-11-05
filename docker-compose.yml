@@ -7,13 +7,13 @@ services:
     links:
       - mongo
     volumes:
-      - $PWD/yc-news-mail:/data
+      - .:/data
     working_dir: /data
     command: npm start
   mongo:
     image: mongo
     container_name: mongo
     volumes:
-      - $PWD/mongodb:/data
+      - ./mongodb:/data
     expose:
       - 27017

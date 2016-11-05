@@ -40,5 +40,5 @@ fisier-test
 
 # ignoring personal files
 mycomments.js
-docker-compose.yml
+#docker-compose.yml
 credentials.js
