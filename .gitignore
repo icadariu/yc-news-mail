@@ -39,6 +39,4 @@ jspm_packages
 fisier-test
 
 # ignoring personal files
-mycomments.js
-#docker-compose.yml
 credentials.js
